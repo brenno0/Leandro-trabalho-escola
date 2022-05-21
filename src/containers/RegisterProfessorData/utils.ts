@@ -35,8 +35,8 @@ export const validationSchema = Yup.object().shape({
     schoolSchedule:Yup.array().of(
         Yup.object().shape({
             dayWeek:Yup.string(),
-            initialDate:Yup.string().required("Este campo é obrigatório"),
-            finalDate:Yup.string().required("Este campo é obrigatório"),
+            initialDate:Yup.string().min(5, "Mínimo 5 caracteres").required("Este campo é obrigatório"),
+            finalDate:Yup.string().min(5, "Mínimo 5 caracteres").required("Este campo é obrigatório"),
         })
     ).min(1)
 })
