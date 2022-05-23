@@ -82,8 +82,8 @@ export const RegisterProfessorData = () => {
                 history.push("/")
             }).catch((error) => {
                 toast({
-                    title: error.message,
-                    description: error.message,
+                    title: "Erro desconhecido, por favor tente mais tarde!",
+                    description: "Erro desconhecido, por favor tente mais tarde!",
                     status: 'error',
                     duration: 9000,
                     isClosable: true,
