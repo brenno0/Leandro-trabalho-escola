@@ -73,6 +73,7 @@ export const RegisterProfessorData = () => {
             await teacherApi.post(body)
             .then(res => {
                 toast({
+                    position: 'bottom-right',
                     title: 'Aula registrada com sucesso!',
                     description: "Sua aula foi criada com sucesso, agora é só aguardar os alunos em seu Whatsapp!",
                     status: 'success',
