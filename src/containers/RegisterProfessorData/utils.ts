@@ -23,7 +23,7 @@ export const validationSchema = Yup.object().shape({
     name:Yup.string().required("Este campo é obrigatório"),
     photo:Yup.string().required("Este campo é obrigatório"),
     contact:Yup.string().min(16, "Mínimo 9 caracteres").required("Este campo é obrigatório"),
-    biography:Yup.string().min(300, 'Mínimo 300 caracteres').required("Este campo é obrigatório"),
+    biography:Yup.string().min(50, 'Mínimo 50 caracteres').max(500, 'Máximo 500 caracteres').required("Este campo é obrigatório"),
     cpf:Yup.string().min(14, 'Mínimo 14 caracteres').required("Este campo é obrigatório"),
     email:Yup.string().email("Por favor digite um e-mail válido").required("Este campo é obrigatório"),
     matterName:Yup.string(),

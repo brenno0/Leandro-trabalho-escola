@@ -12,8 +12,8 @@ function Home() {
       justify="left"
       wrap="wrap"
       >
-        <Flex  maxW="50%" wrap="wrap" mb="100px">
-          <Text fontSize="70px" color="white">PROFSTUDAR</Text>
+        <Flex  maxW="40%" wrap="wrap" mb="100px">
+          <Text fontSize="70px" color="white" fontWeight="bold">Virtual estudo</Text>
           <Text fontSize="40px" maxW="400px" color="indigo.50">Sua plataforma de estudos online.</Text>
         </Flex> 
         <Flex ml="20px" mt="60px">

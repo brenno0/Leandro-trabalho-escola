@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Box, Container, Flex, FormControl, Heading, Stack,Text,Button, Spinner, IconButton } from "@chakra-ui/react"
+import { Box, Container, Flex, FormControl, Heading, Stack,Text,Button, Spinner, IconButton, useToast } from "@chakra-ui/react"
 import InputMask from 'react-input-mask';
 import { Formik } from "formik"
 import { CustomContainer } from "../../components/Container"
@@ -11,6 +11,7 @@ import { initialValues,validationSchema, days } from "./utils"
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import { mattersApi } from '../../api/mattersApi'
 import { teacherApi } from '../../api/teacherApi';
+import { useHistory } from 'react-router-dom';
 
 interface MattersInterface{
     label:String;
@@ -20,6 +21,8 @@ interface MattersInterface{
 
 export const RegisterProfessorData = () => {
 
+    const toast = useToast()
+    const history = useHistory()
 
 
     
@@ -29,28 +32,28 @@ export const RegisterProfessorData = () => {
    
     const getData = useCallback(async () => {
         setIsLoading(true)
-        await mattersApi.list().then((response) => {
+        await mattersApi.list()
+        .then((response) => {
            response.data.matterInput = response.data.map((matter:any) => {
                return {
                    value:matter.id,
                    label:matter.discipline
                }
            })
-          console.log(response.data.matterInput)
-           setMatters(response.data.matterInput)
-   
+            setMatters(response.data.matterInput)
         }).catch((err) =>{
-            console.error(err)
+            console.log(err)
         }).finally(() => {
             setIsLoading(false)
         })
     }, [])
+
     useEffect(() => {
         getData()
     }, [getData])
 
     const submitTeacherData = async (values:any) => {
-        console.log(values)
+        setIsLoading(true)
             const body = {
                 "cpfOrCnpj": values.cpf,
                 "description": values.biography,
@@ -69,9 +72,24 @@ export const RegisterProfessorData = () => {
               }
             await teacherApi.post(body)
             .then(res => {
-
-        
-                return res.data;
+                toast({
+                    title: 'Aula registrada com sucesso!',
+                    description: "Sua aula foi criada com sucesso, agora é só aguardar os alunos em seu Whatsapp!",
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                  })
+                history.push("/")
+            }).catch((error) => {
+                toast({
+                    title: error.message,
+                    description: error.message,
+                    status: 'error',
+                    duration: 9000,
+                    isClosable: true,
+                  })
+            }).finally(() => {
+                setIsLoading(false)
             })
     
     }
@@ -83,8 +101,8 @@ export const RegisterProfessorData = () => {
         textTitle="Que incrível que você quer dar aulas"
         text="O primeiro passo é preencher este formulário de inscrição"
         />
-        <CustomContainer  bg="gray.100" minHeight="128vh" maxW="container.xl">
-            <Box background="white" w="40%" pos="absolute" top="230px">
+        <CustomContainer  bg="gray.100" minHeight="200vh" maxW="container.xl">
+            <Box background="white" w="60%" pos="absolute" top="230px">
                     <Container maxW="80%">
                         <Heading color="gray.900" my="40px" fontSize="2xl">Seus dados</Heading>
                         <Box h="1px" my="20px"></Box>
