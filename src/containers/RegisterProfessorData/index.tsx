@@ -83,8 +83,8 @@ export const RegisterProfessorData = () => {
             }).catch((error) => {
                 toast({
                     position: 'bottom-right',
-                    title: "Erro desconhecido, por favor tente mais tarde!",
-                    description: "Erro desconhecido, por favor tente mais tarde!",
+                    title: "´CPF já cadastrado",
+                    description: "´CPF já cadastrado",
                     status: 'error',
                     duration: 9000,
                     isClosable: true,
