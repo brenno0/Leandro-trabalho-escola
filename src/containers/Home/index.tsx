@@ -11,7 +11,7 @@ function Home() {
         <Flex alignItems="center" gap="10px">
           <FiLogIn fontSize="22px" />
           <Text  fontWeight="bold" textAlign="right" >
-            Logar-se como Administrador
+            Logar-se como administrador
           </Text>
         </Flex>
       </Link>
