@@ -24,6 +24,7 @@ interface schoolSchedules {
 
 interface TeachersArray {
     approved:Number;
+    verify:Number;
     id:Number;
     cpfOrCnpj:string;
     description:string;
@@ -151,7 +152,7 @@ export const SearchForClasses = () => {
                     className="scale-up-bottom"
                     teacher={teacher.fullName}
                     email={teacher.email}
-                    isVerified={teacher.approved === 1 ? true : false}
+                    isVerified={teacher.verify === 1 ? true : false}
                     school={teacher.discipline[0].discipline}
                     imageUrl={teacher.linkPhoto}
                     mainText={teacher.description}
