@@ -27,5 +27,12 @@ export const theme = extendTheme({
     heading:'Archivo',
     body:'Archivo'
   },
+  styles:{
+    global:{
+        body: {
+          backgroundColor: '#E6E6F0',
+        }
+    }
+}
   
 })

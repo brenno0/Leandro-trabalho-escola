@@ -151,7 +151,7 @@ export const RegisterProfessorData = () => {
                             <Flex justify="space-between" alignItems="center">
                                 <Heading  color="gray.900" my="40px" fontSize="2xl">Horários disponíveis</Heading>
                                 
-                                <Button leftIcon={<AddIcon />} colorScheme='purple' variant='ghost' onClick={() => {
+                                <Button leftIcon={<AddIcon />} colorScheme='teal' variant='ghost' onClick={() => {
                                 values.schoolSchedule.push({dayWeek:"",initialDate:"",finalDate:""});
                                 setFieldValue("schoolSchedule", values.schoolSchedule);
                             }}>
@@ -199,7 +199,7 @@ export const RegisterProfessorData = () => {
                             <Box h="150px" bgColor="gray.50">
                                <Flex h="100%" align="center" justify="space-between">
                                   <Text mx="10" color="gray.200">Preencha todos os campos!</Text>
-                                  <Button type="submit" disabled={!isValid || !dirty || isLoading} onClick={() => submitTeacherData(values)}  color="white" mx="20px" w="250px" h="56px" bgColor="green.100" _hover={{ bg: "green.800" }}>{(isSubmitting || isLoading) ? <Spinner color="indigo.300" /> : "Enviar"}</Button>
+                                  <Button type="submit" disabled={!isValid || !dirty || isLoading} onClick={() => submitTeacherData(values)}  color="white" mx="20px" w="250px" h="56px" bgColor="green.100" _hover={{ bg: "green.800" }}>{(isSubmitting || isLoading) ? <Spinner color="#d7d7d7" /> : "Enviar"}</Button>
                                </Flex>
                             </Box>
                                 </>
