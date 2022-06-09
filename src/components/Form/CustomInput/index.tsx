@@ -60,6 +60,7 @@ export const CustomInput:ForwardRefRenderFunction<HTMLInputElement,CustomInputPr
                         <InputRightElement width='4.5rem'>
                         <IconButton
                         onClick={onIconButtonClick}
+                        ml="28px"
                         bgColor="transparent"
                         aria-label='Search database'
                         icon={icon as ReactElement<any, string | JSXElementConstructor<any>> }

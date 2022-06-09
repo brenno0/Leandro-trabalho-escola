@@ -1,5 +1,4 @@
-import { Box, Button, Container, Flex, Heading, InputGroup, Spinner } from "@chakra-ui/react"
-import { CustomContainer } from "../../components/Container"
+import {  Button, Flex, Spinner, Stack } from "@chakra-ui/react"
 import { Formik, FormikValues } from "formik"
 import { initialValues, validationSchema } from "./utils"
 import { CustomInput } from "../../components/Form/CustomInput"
@@ -9,6 +8,8 @@ import { FaUserAlt } from 'react-icons/fa'
 import { authApi } from "../../api/auth"
 import { useStoreActions, useStoreState } from "../../store"
 import { useHistory } from "react-router-dom"
+import  Download from '../../common/assets/download.jpg'
+
 
 interface User {
     accessToken: string;
@@ -58,53 +59,61 @@ export const Login = () => {
     
     
     return (
-        <CustomContainer maxW="container.xl" display="flex" alignItems="center" justifyContent="center"  w="100%" h="100vh" >
-            <Box width="60%" height="70vh" bgColor="#1a1a1a" borderRadius="2xl">
-                <Flex justifyContent="center" color="#FFF" mt="20px">
-                   <Heading as="h1" size='2xl' >Faça seu login</Heading> 
-                </Flex>
-                <Box mt="80px" >
-                    <Formik
-                    validationSchema={validationSchema}
-                    initialValues={initialValues}
-                    style={{backgroundColor:"blue"}}
-                    onSubmit={onSubmit}
+        <Flex 
+        w="100vw"
+        h="100vh" 
+        align="center" 
+        justify="center"
+        backgroundImage={Download}
+        backgroundSize="100% 100%"
+      >
+
+            <Formik
+            validationSchema={validationSchema}
+            initialValues={initialValues}
+            style={{backgroundColor:"blue"}}
+            onSubmit={onSubmit}
+            >
+            {({ handleSubmit, isValid, dirty }) => (
+
+                <form onSubmit={handleSubmit}>
+
+                    <Flex 
+                    width="100%" 
+                    maxWidth={360}
+                    bg="gray.800"
+                    p="8"
+                    borderRadius={8}
+                    flexDir="column"
                     >
-                        {({ handleSubmit, isValid, dirty }) => (
-                            <form onSubmit={handleSubmit}>
-                                <Container w="100%"   >
-                                    <Box>
-                                        <CustomInput name="username" label="Nome de usuário*" hasRightIcon={true} icon={<FaUserAlt fontSize="20px" color="blackAlpha.700" />}  />
-                                    </Box>
-                                    <Box mt="30px">
-                                        <InputGroup>
-                                            <CustomInput name="password" label="Senha*" type={!showPassword ? "password" : "text"} hasRightIconButton={true} onIconButtonClick={() => setShowPassword(!showPassword) } icon={!showPassword ? <AiFillEye color="#04D361" fontSize="24px" /> : <AiFillEyeInvisible color="#04D361" fontSize="24px" /> }  />
-                                          
-                                        </InputGroup>
-                                    </Box>
+                    <Stack spacing="4">
+                    
+                        <CustomInput name="username" label="Nome de usuário*" hasRightIcon={true} icon={<FaUserAlt fontSize="14px"  style={{marginLeft:"28px"}} color="blackAlpha.700" />}  />
+                        
+                                                    
+                        <CustomInput name="password" label="Senha*" type={!showPassword ? "password" : "text"} hasRightIconButton={true} onIconButtonClick={() => setShowPassword(!showPassword) } icon={!showPassword ? <AiFillEye color="#4FD1C5" fontSize="22px" /> : <AiFillEyeInvisible color="#4FD1C5" fontSize="24px" /> }  />
 
-                                    <Flex mt="30px" justifyContent="center">
-                                        <Button
-                                        type="submit"
-                                         w="30%"
-                                         disabled={!dirty || !isValid || formButtonLoading}
-                                         height="50px"
-                                         color="white" 
-                                         bg="green.100"
-                                         _hover={{ bg: "green.800" }}
-                                         >
-                                            {!formButtonLoading ? "Enviar" :  <Spinner color="#d7d7d7" />}
-                                        </Button>
-                                    </Flex>
+            
+                    </Stack>
+                    
+                    <Flex mt={12} justifyContent="center">
+                        <Button
+                        type="submit"
+                        w="30%"
+                        disabled={!dirty || !isValid || formButtonLoading}
+                        height="50px"
+                        color="white" 
+                        bg="#4FD1C5"
+                        _hover={{ bg: "#4FD1C5"}}
+                        >
+                        {!formButtonLoading ? "Enviar" :  <Spinner color="#d7d7d7" />}
+                        </Button>
+                    </Flex>
+                    </Flex>
+                </form>
+            )}  
 
-                                </Container>
-
-                            </form>
-                        )}
-
-                    </Formik>
-                </Box>
-            </Box>
-        </CustomContainer>
+            </Formik>
+        </Flex>
     )
 }
