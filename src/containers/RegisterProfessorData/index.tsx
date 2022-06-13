@@ -163,7 +163,7 @@ export const RegisterProfessorData = () => {
                             <Stack spacing={2}>
                          
                            {values.schoolSchedule.map((item, index) => (
-                                <Flex key={`item - ${index}`}>
+                                <Flex key={`item - ${index}`} data-testid="formContainerTest">
                                     <CustomSelect  name="dayWeek" label="Dia da semana" option={days} maxW="90%"  onChange={(e) => {setFieldValue(`schoolSchedule[${index}].dayWeek`, e.target.value)}} />
 
 
@@ -181,6 +181,7 @@ export const RegisterProfessorData = () => {
                                         <IconButton
                                         icon={<CloseIcon />}
                                         size="sm"
+                                        data-testid="remove"
                                         variant="ghost"
                                         colorScheme='purple'
                                         onClick={() => {

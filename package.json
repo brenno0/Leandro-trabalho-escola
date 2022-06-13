@@ -30,7 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest"
+    "test": "jest RegisterProfessorData.spec.tsx"
   },
   "eslintConfig": {
     "extends": [

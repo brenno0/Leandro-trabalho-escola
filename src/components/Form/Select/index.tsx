@@ -23,13 +23,9 @@ export const CustomSelect:ForwardRefRenderFunction<HTMLSelectElement,CustomInput
                         focusBorderColor="indigo.300"
                         {...rest}
                     >
-                        {isLoading ? (
-                            <CircularProgress isIndeterminate color='#282727' />
-                        ) : (
-                            option.map((option, index) => (
-                                <option key={index}>{option.label}</option>
-                            ))
-                        )}
+                       {option.map((option, index) => (
+                            <option key={index}>{option.label}</option>
+                        ))}
                     </Select>
                     {!!meta.error && <FormErrorMessage> {meta.error}  </FormErrorMessage> }
                     
