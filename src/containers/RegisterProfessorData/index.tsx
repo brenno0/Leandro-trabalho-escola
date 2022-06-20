@@ -12,6 +12,7 @@ import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import { mattersApi } from '../../api/mattersApi'
 import { teacherApi } from '../../api/teacherApi';
 import { useHistory } from 'react-router-dom';
+import { errorMessages } from '../../common/utils/errorMessages';
 
 interface MattersInterface{
     label:String;
@@ -81,15 +82,14 @@ export const RegisterProfessorData = () => {
                     isClosable: true,
                   })
                 history.push("/")
-            }).catch((error) => {
+            }).catch((err) => {
                 toast({
-                    position: 'bottom-right',
-                    title: "´CPF já cadastrado",
-                    description: "´CPF já cadastrado",
-                    status: 'error',
-                    duration: 9000,
+                    description: `${errorMessages.catch_error(err)}`,
+                    status: `error`,
+                    duration: 5000,
+                    position:"bottom-right",
                     isClosable: true,
-                  })
+                })
             }).finally(() => {
                 setIsLoading(false)
             })

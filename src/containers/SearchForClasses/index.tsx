@@ -7,6 +7,7 @@ import { Button, CircularProgress, Flex, Input, InputGroup, InputRightElement, u
 import { CustomModal } from "../../components/Dialog";
 import { FiCopy } from 'react-icons/fi'
 import { BsCheck2 } from 'react-icons/bs'
+import { errorMessages } from "../../common/utils/errorMessages";
 
 interface schoolSubjects{
     id:Number;
@@ -50,10 +51,15 @@ export const SearchForClasses = () => {
         setLoading(true)
         teacherApi.list()
         .then((res) => {
-            console.log(res)
             setTeachers(res.data)
-        }).catch((e) => {
-            console.log(e)
+        }).catch((err) => {
+            toast({
+                description: `${errorMessages.catch_error(err)}`,
+                status: `error`,
+                duration: 5000,
+                position:"bottom-right",
+                isClosable: true,
+            })
         }).finally(() => {
             setLoading(false)
         })
