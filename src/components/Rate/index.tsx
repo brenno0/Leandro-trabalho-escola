@@ -11,9 +11,10 @@ interface RateProps {
         unfilled?:string;
     }
     stars:Number;
+    disabled?:boolean
 }
 
-export const Rate = ({ count = 5, rating, color = {filled:"#f5eb3b",unfilled:"#DCDCDC" }, onRating, stars }: RateProps) => {
+export const Rate = ({ count = 5, rating, color = {filled:"#f5eb3b",unfilled:"#DCDCDC" }, onRating, stars, disabled = false }: RateProps) => {
     const [hoverRating, setHoverRating] = useState(stars)
     
 
@@ -34,9 +35,9 @@ export const Rate = ({ count = 5, rating, color = {filled:"#f5eb3b",unfilled:"#D
             <AiFillStar 
             key={`icon-${index}`}
             onClick={() => {onRating(index)}}
-            onMouseEnter={() => {setHoverRating(index)}}
+            onMouseEnter={() => {disabled ? setHoverRating(0) : setHoverRating(index)}}
             onMouseLeave={() => {setHoverRating(0)}}
-            style={{color: getColor(index) as any, cursor:"pointer"}}
+            style={{color: getColor(index) as any, cursor:disabled ? "default" : "pointer"}}
             fontSize="23px"
             />
         ))

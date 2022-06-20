@@ -36,6 +36,7 @@ interface TeachersArray {
     hourCost:string;
     linkPhoto:string;
     whatsApp:string;
+    stars:Number;
 }
 
 export const SearchForClasses = () => {
@@ -164,6 +165,7 @@ export const SearchForClasses = () => {
                     mainText={teacher.description}
                     price={teacher.hourCost}
                     schedules={teacher.schedules}
+                    stars={teacher.stars}
                     submitButtonClick={() => submitButtonClick(index)}
                     />
                 ))}

@@ -2,6 +2,8 @@
 import { Box, Button, Container, Heading, Image, Text, Flex } from "@chakra-ui/react"
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { GoVerified, GoUnverified } from 'react-icons/go'
+import { useState } from "react";
+import { Rate } from "../Rate";
 
 
 interface Schedules {
@@ -21,26 +23,42 @@ interface CardProps {
     className?:string;
     isVerified:boolean;
     schedules:Schedules[];
+    stars:Number;
     submitButtonClick:() => void;
 }
 
-export const Card = ({teacher, school, email, mainText, imageUrl, price, isVerified, className, submitButtonClick, schedules}: CardProps) => {
+export const Card = ({teacher, school, email, mainText, imageUrl, price, isVerified, className, submitButtonClick, schedules, stars}: CardProps) => {
 
+    const [rating, setRating] = useState(stars)
     
     return (
         <Container maxW="5xl" className={className}>
                 <Box width="100%" backgroundColor="#1a1a1a" minHeight="300px" marginTop="30px" boxShadow="4px 4px 6px -3px rgba(130, 87, 229,0.14)" borderRadius="10px" >
-                    <Container maxW="5xl" display="flex" alignItems="center" marginTop="20px" minHeight="80px" >
-                        <Box marginTop="10px"><Image  src={imageUrl} borderRadius='full' boxSize='60px' width="85px" height="80px" /></Box>
-                        <Box marginTop="20px" >
-                            <Flex alignItems="center" >
-                                <Heading as="h4" size="md" ml="10px" color="#fff">{teacher}</Heading>
-                                {isVerified ? (<GoVerified title="Usuário verificado" color="#0cdc6a" style={{marginLeft:"12px"}} />) : (<GoUnverified title="Usuário não verificado" color="#dc0c5f" style={{marginLeft:"12px"}} />)}
-                            </Flex>
-                            <Text color="#d7d7d7" size="xs" ml="10px">{school}</Text>
-                            <Text color="#d7d7d7" size="xs" ml="10px">{email}</Text>
+                    <Flex justifyContent="space-between" alignItems="center">
+                        <Container maxW="5xl" display="flex" alignItems="center" marginTop="20px" minHeight="80px" >
+                            <Box marginTop="10px"><Image  src={imageUrl} borderRadius='full' boxSize='60px' width="85px" height="80px" /></Box>
+                            <Box marginTop="20px" >
+                                <Flex alignItems="center" >
+                                    <Heading as="h4" size="md" ml="10px" color="#fff">{teacher}</Heading>
+                                    {isVerified ? (<GoVerified title="Usuário verificado" color="#0cdc6a" style={{marginLeft:"12px"}} />) : (<GoUnverified title="Usuário não verificado" color="#dc0c5f" style={{marginLeft:"12px"}} />)}
+                                </Flex>
+                                <Text color="#d7d7d7" size="xs" ml="10px">{school}</Text>
+                                <Text color="#d7d7d7" size="xs" ml="10px">{email}</Text>
+                            </Box>
+                        </Container>  
+                        <Box mr="40px">
+                            <Rate 
+                            rating={rating} 
+                            disabled={true}
+                            onRating={
+                                (rate: any) => {
+                                    setRating(rate)
+                                    
+                                }
+                            } 
+                            stars={stars}/>
                         </Box>
-                    </Container>  
+                    </Flex>
                     
                     <Container maxW="5xl" marginTop="20px" pr="30px" minHeight="100px">
                         <Box>
