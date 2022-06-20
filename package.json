@@ -30,7 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest RegisterProfessorData.spec.tsx"
+    "test": "jest Login.spec.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +59,7 @@
     "@types/react-input-mask": "^3.0.1",
     "@types/react-router-dom": "^5.3.2",
     "@types/styled-components": "^5.1.15",
+    "identity-obj-proxy": "^3.0.0",
     "install": "^0.13.0",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",

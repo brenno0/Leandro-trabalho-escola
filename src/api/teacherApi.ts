@@ -7,5 +7,14 @@ export const teacherApi = {
     },
     post(body?:Object){
         return Api.post('/teacher/save', body)
-    }
+    },
+    stars(id:Number, stars:Number){
+        return Api.put(`/teacher/star/${stars}/${id}`, )
+    },
+    verify(id:Number){
+        return Api.put(`/teacher/verified/${id}`)
+    },
+    unVerify(id:Number){
+        return Api.put(`/teacher/notverified/${id}`)
+    },
 }

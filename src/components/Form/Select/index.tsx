@@ -1,7 +1,6 @@
 import { FormControl, FormLabel, FormErrorMessage, Select, SelectProps } from "@chakra-ui/react"
 import {Field, FieldProps } from 'formik'
 import { ForwardRefRenderFunction } from "react"
-import { CircularProgress } from '@chakra-ui/react'
 
 interface CustomInputProps extends SelectProps {
     name:string;  

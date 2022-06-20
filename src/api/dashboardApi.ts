@@ -6,9 +6,9 @@ export const dashboardApi = {
        return Api.get('/panel/all', params)
     },
     approve(id:Number){
-        return Api.post(`/panel/approve/${id}`)
+        return Api.put(`/panel/approve/${id}`)
     },
     disapprove(id:Number){
-        return Api.post(`/panel/disapprove/${id}`)
+        return Api.put(`/panel/disapprove/${id}`)
     }
 }

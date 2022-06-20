@@ -26,7 +26,8 @@ export const Login = () => {
     const setUser = useStoreActions(state => state.addUser)
     const user = useStoreState(state => state.users)
     const history = useHistory();
-
+    console.log(history)
+    
     
     const onSubmit = (values: FormikValues) => {
       
@@ -88,10 +89,10 @@ export const Login = () => {
                     >
                     <Stack spacing="4">
                     
-                        <CustomInput name="username" label="Nome de usuário*" hasRightIcon={true} icon={<FaUserAlt fontSize="14px"  style={{marginLeft:"28px"}} color="blackAlpha.700" />}  />
+                        <CustomInput name="username" label="Nome de usuário*" data-testingid="username" hasRightIcon={true} icon={<FaUserAlt fontSize="14px"  style={{marginLeft:"28px"}} color="blackAlpha.700" />}  />
                         
                                                     
-                        <CustomInput name="password" label="Senha*" type={!showPassword ? "password" : "text"} hasRightIconButton={true} onIconButtonClick={() => setShowPassword(!showPassword) } icon={!showPassword ? <AiFillEye color="#4FD1C5" fontSize="22px" /> : <AiFillEyeInvisible color="#4FD1C5" fontSize="24px" /> }  />
+                        <CustomInput name="password" label="Senha*" data-testingid="password" type={!showPassword ? "password" : "text"} hasRightIconButton={true} onIconButtonClick={() => setShowPassword(!showPassword) } icon={!showPassword ? <AiFillEye color="#4FD1C5" fontSize="22px" /> : <AiFillEyeInvisible color="#4FD1C5" fontSize="24px" /> }  />
 
             
                     </Stack>
