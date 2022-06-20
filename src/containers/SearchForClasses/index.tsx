@@ -45,8 +45,8 @@ export const SearchForClasses = () => {
     const [isModalOpen,setIsModalOpen] = useState(false)
     const [isCheckIconVisible,setIsCheckIconVisible] = useState(false)
     const [teachersContact, setTeachersContact] = useState("")
+    const [teachersContactNumbers,setTeachersContactNumber] = useState("")
     const toast = useToast()
-
 
     useEffect(() => {
         setLoading(true)
@@ -64,10 +64,11 @@ export const SearchForClasses = () => {
         }).finally(() => {
             setLoading(false)
         })
-    }, [])
+    }, [toast])
 
     const submitButtonClick = useCallback((index:number) => {
         setTeachersContact(teachers[index].whatsApp)
+        setTeachersContactNumber(teachers[index].whatsApp.replace(/[^\d]+/g,''))
         setIsModalOpen(true)
     }, [teachers])
 
@@ -113,32 +114,38 @@ export const SearchForClasses = () => {
             textTitle="Estes são os professores disponíveis"
             text="Basta filtrar por matérias e escolher seu professor!"
             />
-            {/* <InputGroup size='md' display="flex" justifyContent="center" gap="8px" position="relative" top="-20px">
-                <Input
-                pr='4.5rem'
-                value={teachersContact}
-                placeholder='Contato'
-                width='20%'
-                />
-                <Input
-                pr='4.5rem'
-                value={teachersContact}
-                placeholder='Contato'
-                width='20%'
-                />
-                <Input
-                pr='4.5rem'
-                value={teachersContact}
-                placeholder='Contato'
-                width='20%'
-                />
-    
-            </InputGroup> */}
+            <Flex width="100%" justifyContent="center">
+                <InputGroup maxW="40%"  size='md' display="flex" justifyContent="center" gap="8px" position="relative" top="-20px">
+                    <Input
+                    pr='4.5rem'
+                    placeholder='Matéria'
+                    width='30%'
+                    bgColor="#f7f7ff"
+                    h="50px"
+                    />
+                    <Input
+                    pr='4.5rem'
+                    placeholder='Dia da semana'
+                    width='30%'
+                    bgColor="#f7f7ff"
+                    h="50px"
+                    />
+                    <Input
+                    pr='4.5rem'
+                    placeholder='Horário'
+                    width='30%'
+                    bgColor="#f7f7ff"
+                    h="50px"
+                    />
+                    <Button _hover={{bgColor:"#0bba5a"}} w="13%" h="50px" color="#FFF" bgColor="#0cdc6a">Filtrar</Button>
+        
+                </InputGroup>
+            </Flex>
             {isModalOpen && (
                 <CustomModal  
                 isOpen={isModalOpen}
                 linkButton={true}
-                link={"https://web.whatsapp.com/"}
+                link={`https://wa.me/55${teachersContactNumbers}`}
                 onClose={() => setIsModalOpen(false)}
                 title="Entre em contato com seu professor"
                 content={<RenderModalContent/>}
