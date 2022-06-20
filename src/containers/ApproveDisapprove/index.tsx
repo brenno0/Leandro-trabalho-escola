@@ -194,7 +194,7 @@ export const ApproveDisapprove = () => {
                     </Flex>
             ): (
                 <Flex w="100vw" h="100vh" justifyContent="center"  pt={10}>
-                    {teachers.filter(teacher => teacher.teacherApproved === 0).length === 1 ? (
+                    {teachers.filter(teacher => teacher.teacherApproved === 0).length === 0 ? (
                         <Flex w="100%" h="100%" justifyContent="center" alignItems="center" >
                             
                             <Text  fontSize='l' mb={23} color="#9C98A6">Nenhuma solicitação foi encontrada &nbsp;</Text>
@@ -205,7 +205,7 @@ export const ApproveDisapprove = () => {
                         <Flex w={{md:"90%", lg:"90%", xl:"50%"}} flexWrap="wrap" h="10%" >
 
 
-                            {teachers.filter(teacher => teacher.teacherApproved === 1).map((teacher,index) => (
+                            {teachers.filter(teacher => teacher.teacherApproved === 0).map((teacher,index) => (
                                 <ApprovalCard 
                                 starNumbersFunction={(stars:number) => selectNewStarsNumber(stars, teacher)}
                                 teacher={teacher.teachers.fullName} 
