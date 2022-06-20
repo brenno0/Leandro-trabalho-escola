@@ -6,7 +6,7 @@ import { useState } from "react"
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { FaUserAlt } from 'react-icons/fa'
 import { authApi } from "../../api/auth"
-import { useStoreActions, useStoreState } from "../../store"
+import { useStoreActions } from "../../store"
 import { useHistory } from "react-router-dom"
 import  Download from '../../common/assets/download.jpg'
 
@@ -24,7 +24,6 @@ export const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [formButtonLoading, setFormButtonLoading] = useState(false);
     const setUser = useStoreActions(state => state.addUser)
-    const user = useStoreState(state => state.users)
     const history = useHistory();
     
     

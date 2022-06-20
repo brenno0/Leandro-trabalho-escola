@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { AiFillStar } from 'react-icons/ai'
 
 interface RateProps {
@@ -27,7 +27,7 @@ export const Rate = ({ count = 5, rating, color = {filled:"#f5eb3b",unfilled:"#D
         return color.unfilled
     }
     
-    const startRating = useMemo(() => {
+    const startRating = () => {
         return Array(count)
         .fill(0)
         .map((_,i) => i + 1)
@@ -41,7 +41,7 @@ export const Rate = ({ count = 5, rating, color = {filled:"#f5eb3b",unfilled:"#D
             fontSize="23px"
             />
         ))
-    }, [count, getColor, onRating]);
+    }
 
     return (
         <Box display="flex">
