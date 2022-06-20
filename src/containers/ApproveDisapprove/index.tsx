@@ -71,11 +71,11 @@ export const ApproveDisapprove = () => {
     }, [getData])
 
     const selectNewStarsNumber = (stars:Number, teacher:CardInformations) => {
-        teacherApi.stars(teacher.id, stars)
+        teacherApi.stars(teacher.teachers.id, stars)
         .then(res => {
             toast({
                 description: `Alteração realizada com sucesso, o professor selecionado agora tem ${stars} estrelas`,
-                status: `error`,
+                status: `success`,
                 duration: 5000,
                 position:"bottom-right",
                 isClosable: true,

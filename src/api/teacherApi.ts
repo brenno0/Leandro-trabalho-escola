@@ -9,7 +9,7 @@ export const teacherApi = {
         return Api.post('/teacher/save', body)
     },
     stars(id:Number, stars:Number){
-        return Api.put(`/teacher/star/${stars}/${id}`, )
+        return Api.put(`/teacher/${stars}/${id}`, )
     },
     verify(id:Number){
         return Api.put(`/teacher/verified/${id}`)
