@@ -48,7 +48,6 @@ export const ApproveDisapprove = () => {
     const [loading, setLoading] = useState(false)
     const toast = useToast()
     
-    console.log(teachers)
     const getData = useCallback(() => {
         
         setLoading(true);
@@ -72,7 +71,6 @@ export const ApproveDisapprove = () => {
     }, [getData])
 
     const selectNewStarsNumber = (stars:Number, teacher:CardInformations) => {
-        console.log(stars)
         teacherApi.stars(teacher.id, stars)
         .then(res => {
             toast({
@@ -96,7 +94,6 @@ export const ApproveDisapprove = () => {
     const onApprove = (id:Number) => {
         dashboardApi.approve(id)
         .then((res) => {
-            console.log(res)
             toast({
                 description: `Solicitação aprovada com sucesso`,
                 status: `success`,

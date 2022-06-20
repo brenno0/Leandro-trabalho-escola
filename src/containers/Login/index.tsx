@@ -26,7 +26,6 @@ export const Login = () => {
     const setUser = useStoreActions(state => state.addUser)
     const user = useStoreState(state => state.users)
     const history = useHistory();
-    console.log(history)
     
     
     const onSubmit = (values: FormikValues) => {
@@ -34,7 +33,6 @@ export const Login = () => {
         setFormButtonLoading(true)
         authApi.post({...values})
         .then( res => {
-            console.log(res.data)
             const user: User = {
                 id:res.data.id,
                 username:res.data.username,
@@ -50,10 +48,8 @@ export const Login = () => {
             }
         }).catch(err => {
             console.error(err)
-            console.log(err,'err')
         }).finally(() => {
             setFormButtonLoading(false)
-            console.log('user',user)
         })
     }
     
