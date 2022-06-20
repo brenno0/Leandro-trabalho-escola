@@ -17,7 +17,7 @@ interface schoolSubjects{
 }
 
 interface schoolSchedules {
-    dayweek:string;
+    dayWeek:string;
     initialDate:string;
     finalDate:string;
     id:Number;
@@ -31,7 +31,7 @@ interface TeachersArray {
     description:string;
     discipline:Array<schoolSubjects>;
     email:string;
-    schedules:Array<schoolSchedules[]>;
+    schedules:schoolSchedules[];
     fullName:string;
     hourCost:string;
     linkPhoto:string;
@@ -152,7 +152,7 @@ export const SearchForClasses = () => {
                 </Flex>
             ) : (
                 <>
-                {teachers.map((teacher, index) => (
+                {teachers.filter(teacher => teacher.approved === 1).map((teacher, index) => (
                     <Card 
                     key={index}
                     className="scale-up-bottom"
@@ -163,6 +163,7 @@ export const SearchForClasses = () => {
                     imageUrl={teacher.linkPhoto}
                     mainText={teacher.description}
                     price={teacher.hourCost}
+                    schedules={teacher.schedules}
                     submitButtonClick={() => submitButtonClick(index)}
                     />
                 ))}
