@@ -71,7 +71,7 @@ export const ApproveDisapprove = () => {
         }).finally(() => {
             setLoading(false)
         })
-    }, [])
+    }, [toast])
     
     useEffect(() => {
         getData();
