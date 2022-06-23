@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Action, Actions } from 'easy-peasy';
-
 interface User {
     accessToken: string | null;
     email:string | null;
@@ -20,7 +19,7 @@ export const AuthApi = axios.create({
     }
 })
 
-export const axiosInterceptor = (store:Actions<UserModel>, unauthorizedFunction: () => void) => {
+export const axiosInterceptor = (store:Actions<UserModel>, onError:() => void) => {
     //Executa as funções antes de entregar a resposta
     // Mais sobre interceptors: https://axios-http.com/docs/interceptors
     AuthApi.interceptors.response.use(
@@ -28,13 +27,13 @@ export const axiosInterceptor = (store:Actions<UserModel>, unauthorizedFunction:
         // Faz algo caso a resposta esteja nos 2xx
         return response;
       },
-      function (error) {
+       function (error) {
         // Faz algo caso seja um erro
   
         // 401 é unauthorized
         // caso seja manda pra página de login
         if (error?.response?.status === 401) {
-          unauthorizedFunction();
+          onError();
           store.addUser({
             id:null,
             username:null,

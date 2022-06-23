@@ -61,6 +61,13 @@ export const ApproveDisapprove = () => {
             })
             setTeachers(res.data)
         }).catch((err) => {
+            toast({
+                description: `${errorMessages.catch_error(err)}`,
+                status: `error`,
+                duration: 5000,
+                position:"bottom-right",
+                isClosable: true,
+            })
         }).finally(() => {
             setLoading(false)
         })
