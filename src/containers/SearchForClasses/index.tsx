@@ -3,7 +3,7 @@ import { teacherApi } from "../../api/teacherApi";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import './style.css';
-import { Button, CircularProgress, Flex, Input, InputGroup, InputRightElement, useToast } from '@chakra-ui/react'
+import { Button, CircularProgress, Flex, Input, InputGroup, InputRightElement, useToast, Text } from '@chakra-ui/react'
 import { CustomModal } from "../../components/Dialog";
 import { FiCopy } from 'react-icons/fi'
 import { BsCheck2 } from 'react-icons/bs'
@@ -12,6 +12,7 @@ import { days } from "../../common/utils/weekDays";
 import { CustomSelect } from "../../components/Form/Select";
 import { mattersApi } from "../../api/mattersApi";
 import { Formik, FormikValues } from 'formik'
+import { BiSad } from "react-icons/bi";
 
 interface inputListObject {
     label:string;
@@ -128,7 +129,7 @@ export const SearchForClasses = () => {
                 placeholder='Contato'
                 />
                 <InputRightElement width='4.5rem'>
-                <Button h='1.75rem' size='sm'  _hover={{backgroundColor:"teal.400"}}bgColor={!isCheckIconVisible ? "teal.300" : "#00ea69"} color="white" onClick={async () => {
+                <Button h='1.75rem' size='sm'  _hover={{backgroundColor:"teal.400"}} bgColor={!isCheckIconVisible ? "teal.300" : "#00ea69"} color="white" onClick={async () => {
                     await navigator.clipboard.writeText(teachersContact)
                     setIsCheckIconVisible(true)
                     setTimeout(() => {
@@ -188,7 +189,7 @@ export const SearchForClasses = () => {
                         <form onSubmit={handleSubmit}>
                             <Flex width="100%" justifyContent="center" >
 
-                                <InputGroup maxW="80%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
+                                <InputGroup maxW="60%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
                                     <CustomSelect bgColor="#3c3c3c" color="white" name="matter" position="relative" top="-8px"  h="50px" option={mattersList} value={values.matter.label}  onChange={(e) => {
                                         let matter = mattersList?.find(matter => matter.label === e.target.value)
                                         setFieldValue('matter', matter)
@@ -204,8 +205,8 @@ export const SearchForClasses = () => {
                                     />
                                   
                                 
-                                    <Button type="submit" _hover={{bgColor:"#0bba5a"}}  h="50px" color="#FFF" bgColor="#0cdc6a">Filtrar</Button>
-                                    <Button onClick={() => setFilters(undefined)} _hover={{bgColor:"#0bba5a"}}  w="13%" h="50px" color="#FFF" bgColor="#0cdc6a">Limpar filtros</Button>
+                                    <Button type="submit" _hover={{bgColor:"#0bba5a"}}  h="50px" color="#FFF"  bgColor="#0cdc6a">Filtrar</Button>
+                                    <Button onClick={() => setFilters(undefined)} _hover={{bgColor:"#0bba5a"}} minW="100px"  h="50px" color="#FFF" bgColor="#0cdc6a">Limpar filtros</Button>
                         
                                 </InputGroup>
                             </Flex>
@@ -231,22 +232,31 @@ export const SearchForClasses = () => {
                 </Flex>
             ) : (
                 <>
-                {teachers.filter(teacher => teacher.approved === 1).map((teacher, index) => (
-                    <Card 
-                    key={index}
-                    className="scale-up-bottom"
-                    teacher={teacher.fullName}
-                    email={teacher.email}
-                    isVerified={teacher.verify === 1 ? true : false}
-                    school={teacher.discipline[0].discipline}
-                    imageUrl={teacher.linkPhoto}
-                    mainText={teacher.description}
-                    price={teacher.hourCost}
-                    schedules={teacher.schedules}
-                    stars={teacher.stars}
-                    submitButtonClick={() => submitButtonClick(index)}
-                    />
-                ))}
+                {teachers.length === 0 ? (
+                    <Flex w="100%" h="100%" justifyContent="center" alignItems="center" >
+                            
+                        <Text  fontSize='l' mb={23} color="#9C98A6">Nenhuma solicitação foi encontrada &nbsp;</Text>
+                    <BiSad color="#9C98A6" style={{marginBottom:"20px"}} />
+                </Flex> 
+                ) : (
+
+                    teachers.filter(teacher => teacher.approved === 1).map((teacher, index) => (
+                        <Card 
+                        key={index}
+                        className="scale-up-bottom"
+                        teacher={teacher.fullName}
+                        email={teacher.email}
+                        isVerified={teacher.verify === 1 ? true : false}
+                        school={teacher.discipline[0].discipline}
+                        imageUrl={teacher.linkPhoto}
+                        mainText={teacher.description}
+                        price={teacher.hourCost}
+                        schedules={teacher.schedules}
+                        stars={teacher.stars}
+                        submitButtonClick={() => submitButtonClick(index)}
+                        />
+                    ))
+                )}
                 </>
             )}
             
