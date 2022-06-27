@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import { Api } from './index';
 
 export const teacherApi = {
-    list(params?:AxiosRequestConfig<any>){
+    list(params:any){
        return Api.get('/teacher/all', params)
     },
     post(body?:Object){

@@ -8,6 +8,19 @@ import { CustomModal } from "../../components/Dialog";
 import { FiCopy } from 'react-icons/fi'
 import { BsCheck2 } from 'react-icons/bs'
 import { errorMessages } from "../../common/utils/errorMessages";
+import { days } from "../../common/utils/weekDays";
+import { CustomSelect } from "../../components/Form/Select";
+import { mattersApi } from "../../api/mattersApi";
+import { Formik, FormikValues } from 'formik'
+
+interface inputListObject {
+    label:string;
+    value:number;
+}
+interface filtersList {
+    discipline:string;
+    dayWeek:string;
+}
 
 interface schoolSubjects{
     id:Number;
@@ -46,11 +59,15 @@ export const SearchForClasses = () => {
     const [isCheckIconVisible,setIsCheckIconVisible] = useState(false)
     const [teachersContact, setTeachersContact] = useState("")
     const [teachersContactNumbers,setTeachersContactNumber] = useState("")
+    const [mattersList, setMattersList] = useState<inputListObject[]>([])
+    const [filters, setFilters] = useState<filtersList>()
     const toast = useToast()
 
-    useEffect(() => {
-        setLoading(true)
-        teacherApi.list()
+
+    const getData = useCallback(() => {
+         setLoading(true)
+
+        teacherApi.list(filters ? {params: {discipline:filters?.discipline?.normalize('NFD').replace(/[\u0300-\u036f]/g, ""), dayWeek:filters?.dayWeek?.normalize('NFD').replace(/[\u0300-\u036f]/g, "") } } : '')
         .then((res) => {
             setTeachers(res.data)
         }).catch((err) => {
@@ -64,7 +81,37 @@ export const SearchForClasses = () => {
         }).finally(() => {
             setLoading(false)
         })
-    }, [toast])
+    },[toast, filters])
+    
+    useEffect(() => {
+        getData()
+    }, [getData])
+
+    useEffect(() => {
+        Promise.all([
+            mattersApi.list()
+
+        ])
+        .then((res) => {
+            console.log(res[0])
+            res[0].data.matterInput = res[0].data.map((i:any) => {
+                return {
+                    value:i.id,
+                    label:i.discipline
+                }
+            })
+            setMattersList(res[0].data.matterInput)
+        }).catch(err => {
+            toast({
+                description: `${errorMessages.catch_error(err)}`,
+                status: `error`,
+                duration: 5000,
+                position:"bottom-right",
+                isClosable: true,
+            })
+        })
+        
+    },[toast])
 
     const submitButtonClick = useCallback((index:number) => {
         setTeachersContact(teachers[index].whatsApp)
@@ -105,6 +152,14 @@ export const SearchForClasses = () => {
         )
     }
 
+    const onFilterSubmit = (values:FormikValues) => {
+        console.log(values)
+        setFilters({
+            dayWeek:values.weekday.label,
+            discipline:values.matter.label,
+        })
+    }
+
     
     
     return (
@@ -114,33 +169,49 @@ export const SearchForClasses = () => {
             textTitle="Estes são os professores disponíveis"
             text="Basta filtrar por matérias e escolher seu professor!"
             />
-            <Flex width="100%" justifyContent="center">
-                <InputGroup maxW="40%"  size='md' display="flex" justifyContent="center" gap="8px" position="relative" top="-20px">
-                    <Input
-                    pr='4.5rem'
-                    placeholder='Matéria'
-                    width='30%'
-                    bgColor="#f7f7ff"
-                    h="50px"
-                    />
-                    <Input
-                    pr='4.5rem'
-                    placeholder='Dia da semana'
-                    width='30%'
-                    bgColor="#f7f7ff"
-                    h="50px"
-                    />
-                    <Input
-                    pr='4.5rem'
-                    placeholder='Horário'
-                    width='30%'
-                    bgColor="#f7f7ff"
-                    h="50px"
-                    />
-                    <Button _hover={{bgColor:"#0bba5a"}} w="13%" h="50px" color="#FFF" bgColor="#0cdc6a">Filtrar</Button>
-        
-                </InputGroup>
-            </Flex>
+                <Formik
+                initialValues={{
+                    matter:{
+                        label:"",
+                        value:null,
+                    },
+                    weekday:{
+                        label:"",
+                        value:null
+                    }
+
+                }}
+                onSubmit={onFilterSubmit}
+                
+                >
+                    {({ handleSubmit, setFieldValue, values }) => (
+                        <form onSubmit={handleSubmit}>
+                            <Flex width="100%" justifyContent="center" >
+
+                                <InputGroup maxW="80%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
+                                    <CustomSelect name="matter" position="relative" top="-8px"  h="50px" option={mattersList} value={values.matter.label}  onChange={(e) => {
+                                        let matter = mattersList?.find(matter => matter.label === e.target.value)
+                                        setFieldValue('matter', matter)
+
+                                    }}
+                                    />
+                                    
+                                    <CustomSelect name="weekday"  h="50px" option={days} position="relative" value={values.weekday.label} top="-8px"  onChange={(e) => {
+                                        let weekday = days?.find(matter => matter.label === e.target.value)
+                                        console.log(weekday)
+                                        setFieldValue('weekday', weekday)
+                                    }}
+                                    />
+                                  
+                                
+                                    <Button type="submit" _hover={{bgColor:"#0bba5a"}}  h="50px" color="#FFF" bgColor="#0cdc6a">Filtrar</Button>
+                                    <Button onClick={() => setFilters(undefined)} _hover={{bgColor:"#0bba5a"}}  w="13%" h="50px" color="#FFF" bgColor="#0cdc6a">Limpar filtros</Button>
+                        
+                                </InputGroup>
+                            </Flex>
+                        </form>
+                    )}
+                </Formik>.
             {isModalOpen && (
                 <CustomModal  
                 isOpen={isModalOpen}

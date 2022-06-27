@@ -7,7 +7,8 @@ import { Header } from "../../components/Header"
 import { CustomInput } from '../../components/Form/CustomInput'
 import { CustomTextarea } from '../../components/Form/TextArea'
 import { CustomSelect } from '../../components/Form/Select'
-import { initialValues,validationSchema, days } from "./utils"
+import { initialValues,validationSchema } from "./utils"
+import { days } from "../../common/utils/weekDays";
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import { mattersApi } from '../../api/mattersApi'
 import { teacherApi } from '../../api/teacherApi';
