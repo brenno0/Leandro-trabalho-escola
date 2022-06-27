@@ -189,14 +189,14 @@ export const SearchForClasses = () => {
                             <Flex width="100%" justifyContent="center" >
 
                                 <InputGroup maxW="80%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
-                                    <CustomSelect name="matter" position="relative" top="-8px"  h="50px" option={mattersList} value={values.matter.label}  onChange={(e) => {
+                                    <CustomSelect bgColor="#3c3c3c" color="white" name="matter" position="relative" top="-8px"  h="50px" option={mattersList} value={values.matter.label}  onChange={(e) => {
                                         let matter = mattersList?.find(matter => matter.label === e.target.value)
                                         setFieldValue('matter', matter)
 
                                     }}
                                     />
                                     
-                                    <CustomSelect name="weekday"  h="50px" option={days} position="relative" value={values.weekday.label} top="-8px"  onChange={(e) => {
+                                    <CustomSelect name="weekday" bgColor="#3c3c3c" color="white"  h="50px" option={days} position="relative" value={values.weekday.label} top="-8px"  onChange={(e) => {
                                         let weekday = days?.find(matter => matter.label === e.target.value)
                                         console.log(weekday)
                                         setFieldValue('weekday', weekday)
