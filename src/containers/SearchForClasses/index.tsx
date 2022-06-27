@@ -189,7 +189,7 @@ export const SearchForClasses = () => {
                         <form onSubmit={handleSubmit}>
                             <Flex width="100%" justifyContent="center" >
 
-                                <InputGroup maxW="60%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
+                                <InputGroup maxW="50%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
                                     <CustomSelect bgColor="#3c3c3c" color="white" name="matter" position="relative" top="-8px"  h="50px" option={mattersList} value={values.matter.label}  onChange={(e) => {
                                         let matter = mattersList?.find(matter => matter.label === e.target.value)
                                         setFieldValue('matter', matter)
@@ -205,7 +205,7 @@ export const SearchForClasses = () => {
                                     />
                                   
                                 
-                                    <Button type="submit" _hover={{bgColor:"#0bba5a"}}  h="50px" color="#FFF"  bgColor="#0cdc6a">Filtrar</Button>
+                                    <Button type="submit" _hover={{bgColor:"#0bba5a"}}  h="50px" color="#FFF" minW="100px" bgColor="#0cdc6a">Filtrar</Button>
                                     <Button onClick={() => setFilters(undefined)} _hover={{bgColor:"#0bba5a"}} minW="100px"  h="50px" color="#FFF" bgColor="#0cdc6a">Limpar filtros</Button>
                         
                                 </InputGroup>
