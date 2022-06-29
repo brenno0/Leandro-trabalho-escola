@@ -14,10 +14,10 @@ export const Api = axios.create({
   // baseURL:process.env.PROJECT_URL_REQUESTS
   baseURL:"https://api-prof.herokuapp.com/api",
 })
+const token = localStorage.getItem('accessToken')
+Api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 
-  const token = localStorage.getItem('accessToken')
-  Api.defaults.headers.common['Authorization'] = `Bearer ${token}`
   
 
 export const axiosInterceptor = (store:Actions<UserModel>, onError:() => void) => {

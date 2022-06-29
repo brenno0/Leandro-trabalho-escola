@@ -9,7 +9,8 @@ import { authApi } from "../../api/auth"
 import { useStoreActions } from "../../store"
 import { useHistory } from "react-router-dom"
 import  Download from '../../common/assets/download.jpg'
-
+import { AxiosResponse } from "axios"
+import { Api } from "../../api"
 
 interface User {
     accessToken: string;
@@ -27,31 +28,39 @@ export const Login = () => {
     const history = useHistory();
     
     
+    const setUserInfo = (res:AxiosResponse<any, any>) => {
+        const user: User = {
+            id:res.data.id,
+            username:res.data.username,
+            accessToken:res.data.accessToken,
+            roles:res.data.roles,
+            email:res.data.email
+        }
+        Api.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`
+        localStorage.setItem('accessToken', res.data.accessToken)
+        setUser(user)
+    }
+    
     const onSubmit = (values: FormikValues) => {
       
         setFormButtonLoading(true)
         authApi.post({...values})
-        .then( res => {
-            const user: User = {
-                id:res.data.id,
-                username:res.data.username,
-                accessToken:res.data.accessToken,
-                roles:res.data.roles,
-                email:res.data.email
+        .then((res:any) => {
+            if(res.data){
+                 setUserInfo(res)
+                    let accessToken = localStorage.getItem('accessToken')
+                   
+                    if(accessToken){
+                        return history.push("/aprovar-reprovar")
+                    }
             }
-            
-            setUser(user)
-            localStorage.setItem('accessToken', user.accessToken)
-            if(res.data.accessToken){
-               return history.push("/aprovar-reprovar")
-            }
-        }).catch(err => {
+        }).catch((err:Error) => {
             console.error(err)
         }).finally(() => {
             setFormButtonLoading(false)
+           
         })
     }
-    
     
     
     return (
