@@ -13,6 +13,8 @@ import { CustomSelect } from "../../components/Form/Select";
 import { mattersApi } from "../../api/mattersApi";
 import { Formik, FormikValues } from 'formik'
 import { BiSad } from "react-icons/bi";
+import { normalizer } from "../../common/utils/normalizer";
+import { initialValues } from "./utils";
 
 interface inputListObject {
     label:string;
@@ -63,12 +65,13 @@ export const SearchForClasses = () => {
     const [mattersList, setMattersList] = useState<inputListObject[]>([])
     const [filters, setFilters] = useState<filtersList>()
     const toast = useToast()
+    // const isMobilePhone = 
 
 
     const getData = useCallback(() => {
          setLoading(true)
 
-        teacherApi.list(filters ? {params: {discipline:filters?.discipline?.normalize('NFD').replace(/[\u0300-\u036f]/g, ""), dayWeek:filters?.dayWeek?.normalize('NFD').replace(/[\u0300-\u036f]/g, "") } } : '')
+        teacherApi.list(filters ? {params: {discipline: normalizer(filters?.discipline), dayWeek:normalizer(filters?.dayWeek) } } : '')
         .then((res) => {
             setTeachers(res.data)
         }).catch((err) => {
@@ -89,19 +92,15 @@ export const SearchForClasses = () => {
     }, [getData])
 
     useEffect(() => {
-        Promise.all([
             mattersApi.list()
-
-        ])
         .then((res) => {
-            console.log(res[0])
-            res[0].data.matterInput = res[0].data.map((i:any) => {
+            res.data.matterInput = res.data.map((i:any) => {
                 return {
                     value:i.id,
                     label:i.discipline
                 }
             })
-            setMattersList(res[0].data.matterInput)
+            setMattersList(res.data.matterInput)
         }).catch(err => {
             toast({
                 description: `${errorMessages.catch_error(err)}`,
@@ -154,7 +153,6 @@ export const SearchForClasses = () => {
     }
 
     const onFilterSubmit = (values:FormikValues) => {
-        console.log(values)
         setFilters({
             dayWeek:values.weekday.label,
             discipline:values.matter.label,
@@ -171,17 +169,7 @@ export const SearchForClasses = () => {
             text="Basta filtrar por matérias e escolher seu professor!"
             />
                 <Formik
-                initialValues={{
-                    matter:{
-                        label:"",
-                        value:null,
-                    },
-                    weekday:{
-                        label:"",
-                        value:null
-                    }
-
-                }}
+                initialValues={initialValues}
                 onSubmit={onFilterSubmit}
                 
                 >
@@ -189,7 +177,7 @@ export const SearchForClasses = () => {
                         <form onSubmit={handleSubmit}>
                             <Flex width="100%" justifyContent="center" >
 
-                                <InputGroup maxW="50%"  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
+                                <InputGroup maxW={{md:"95%", lg:"90%", xl:"60%"}}  size='md' display="flex" justifyContent="center" gap="8px" alignItems="flex-start" position="relative" top="-30px">
                                     <CustomSelect bgColor="#3c3c3c" color="white" name="matter" position="relative" top="-8px"  h="50px" option={mattersList} value={values.matter.label}  onChange={(e) => {
                                         let matter = mattersList?.find(matter => matter.label === e.target.value)
                                         setFieldValue('matter', matter)
