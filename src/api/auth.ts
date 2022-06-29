@@ -1,4 +1,4 @@
-import { AuthApi as Api } from './index';
+import {  Api } from './index';
 
 export const authApi = {
     post(body?:Object){

@@ -1,4 +1,3 @@
-import { AxiosRequestConfig } from 'axios';
 import { Api } from './index';
 
 export const teacherApi = {

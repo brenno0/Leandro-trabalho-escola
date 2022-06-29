@@ -1,14 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
-import { AuthApi } from './index';
+import { Api } from './index';
 
 export const dashboardApi = {
     list(params?:AxiosRequestConfig<any>){
-       return AuthApi.get('/panel/all', params)
+       return Api.get('/panel/all', params)
     },
     approve(id:Number){
-        return AuthApi.put(`/panel/approve/${id}`)
+        return Api.put(`/panel/approve/${id}`)
     },
     disapprove(id:Number){
-        return AuthApi.put(`/panel/disapprove/${id}`)
+        return Api.put(`/panel/disapprove/${id}`)
     }
 }
